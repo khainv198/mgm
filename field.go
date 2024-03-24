@@ -7,13 +7,13 @@ import (
 )
 
 type IDField struct {
-	ID *primitive.ObjectID `json:"id" bson:"_id,omitempty"`
+	ID *primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 }
 
 type DateFields struct {
-	CreatedAt *time.Time `json:"createdAt" bson:"createdAt"`
-	UpdatedAt *time.Time `json:"updatedAt" bson:"updatedAt"`
-	DeletedAt *time.Time `json:"deletedAt" bson:"deletedAt"`
+	CreatedAt *time.Time `json:"createdAt,omitempty" bson:"createdAt,omitempty"`
+	UpdatedAt *time.Time `json:"updatedAt,omitempty" bson:"updatedAt,omitempty"`
+	DeletedAt *time.Time `json:"deletedAt,omitempty" bson:"deletedAt,omitempty"`
 }
 
 func (f *IDField) PrepareID(id interface{}) (interface{}, error) {
