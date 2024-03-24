@@ -18,7 +18,7 @@ type DateFields struct {
 
 func (f *IDField) PrepareID(id interface{}) (interface{}, error) {
 	if idStr, ok := id.(string); ok {
-		return primitive.ObjectIDFromHex(idStr)
+		return ParseObjectId(idStr)
 	}
 
 	return id, nil

@@ -1,11 +1,13 @@
 package mgm
 
 import (
+	"errors"
 	"reflect"
 	"regexp"
 	"strings"
 
 	"github.com/jinzhu/inflection"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -41,4 +43,25 @@ func CollName(m Model) string {
 func UpsertTrueOption() *options.UpdateOptions {
 	upsert := true
 	return &options.UpdateOptions{Upsert: &upsert}
+}
+
+func ParseObjectId(inp interface{}) (*primitive.ObjectID, error) {
+	if id, ok := inp.(primitive.ObjectID); ok {
+		return &id, nil
+	}
+
+	if str, ok := inp.(string); ok {
+		if id, err := primitive.ObjectIDFromHex(str); err == nil {
+			return &id, nil
+		}
+	}
+
+	id := primitive.NilObjectID
+
+	return &id, errors.New("InvalidObjectID")
+}
+
+func NewObjectID() *primitive.ObjectID {
+	id := primitive.NewObjectID()
+	return &id
 }
