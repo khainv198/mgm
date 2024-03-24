@@ -29,7 +29,8 @@ func (f *IDField) GetID() interface{} {
 }
 
 func (f *IDField) SetID(id interface{}) {
-	f.ID = id.(*primitive.ObjectID)
+	ID := id.(primitive.ObjectID)
+	f.ID = &ID
 }
 
 func (f *DateFields) Creating() error {

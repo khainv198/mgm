@@ -12,7 +12,7 @@ type Client struct {
 	db     *mongo.Database
 }
 
-func NewClient(ctx context.Context, opts ...*options.ClientOptions) (*mongo.Client, error) {
+func newClient(ctx context.Context, opts ...*options.ClientOptions) (*mongo.Client, error) {
 	client, err := mongo.NewClient(opts...)
 	if err != nil {
 		return nil, err
@@ -25,8 +25,8 @@ func NewClient(ctx context.Context, opts ...*options.ClientOptions) (*mongo.Clie
 	return client, nil
 }
 
-func SetDefaultConfig(ctx context.Context, dbName string, opts ...*options.ClientOptions) (*Client, error) {
-	client, err := NewClient(ctx, opts...)
+func New(ctx context.Context, dbName string, opts ...*options.ClientOptions) (*Client, error) {
+	client, err := newClient(ctx, opts...)
 	if err != nil {
 		return nil, err
 	}
